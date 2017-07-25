@@ -46,8 +46,7 @@ if (defined $ARGV[3]){
 
 # Assemble the initial URL
 my $MAVEN_ENDPOINT = "$MAVEN_SERVER/service/local/artifact/maven/redirect";
-# (Temporarily) not using classifier, until built back out (see UAF-5120)
-my $WAR_SOURCE_URL = "$MAVEN_ENDPOINT?r=$APP_REPO&g=org.kuali.kfs&a=kfs-web&v=$APP_VERSION&p=war";
+my $WAR_SOURCE_URL = "$MAVEN_ENDPOINT?r=$APP_REPO&g=org.kuali.kfs&a=kfs-web&v=$APP_VERSION&p=war&c=$APP_CLASSIFIER";
 
 # Request the initial URL from Nexus. It will respond with the latest build for that 
 # release as a 302 redirect, but the text of the return will contain the final URL.
