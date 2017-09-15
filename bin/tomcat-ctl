@@ -100,12 +100,6 @@ tomcat_start () {
     log "Completed running liquibase update"
     echo_time "Completed running liquibase update"
 
-    # Swap SMTP value to work for AWS
-    sed -i "s/mail.smtp.host=smtp.local/mail.smtp.host=email-smtp.us-west-2.amazonaws.com/" $TOMCAT_KFS_CORE_DIR/institutional-config.properties
-    sed -i "s/mail.smtp.port=25/mail.smtp.port=587/" $TOMCAT_KFS_CORE_DIR/institutional-config.properties
-    sed -i "s/mail.smtp.starttls.enable=false/mail.smtp.starttls.enable=true/" $TOMCAT_KFS_CORE_DIR/institutional-config.properties
-    sed -i "s/mail.smtp.auth=false/mail.smtp.auth=true/" $TOMCAT_KFS_CORE_DIR/institutional-config.properties
-
     # Copy authinfo and regenerate authinfo.db after initial file creation on EC2 instance via CF and OpsWorks
     # Related documentation: http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sendmail.html
     cp $SMTP_SECURITY_DIRECTORY/authinfo /etc/mail/
