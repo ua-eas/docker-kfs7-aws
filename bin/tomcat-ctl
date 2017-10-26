@@ -95,7 +95,7 @@ tomcat_start () {
     # tag with KFS_ENV_NAME until we figure out how to pass in build version like on-premise docker container work
     log "Running liquibase update."
     echo_time "Running liquibase update."
-    liquibase_update_kfs.sh $KFS_ENV_NAME
+    liquibase_update_kfs.sh $KFS_ENV_NAME >> $LOGS_DIRECTORY/$KFS_STARTUP_LOG 2>&1 &
 
     log "Completed running liquibase update"
     echo_time "Completed running liquibase update"
