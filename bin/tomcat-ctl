@@ -17,7 +17,7 @@ tomcat_start () {
 
     #Set up linking to get LOGS_DIRECTORY backed by EFS
     mkdir -p /efs/logs/$HOSTNAME
-    ln -s "/efs/logs/$HOSTNAME" $LOG_DIRECTORY
+    ln -s "/efs/logs/$HOSTNAME" $LOGS_DIRECTORY
 
     # re-map the tomcat logs directory to our mapped container volume
     rm -f $TOMCAT_BASE_DIR/logs
