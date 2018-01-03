@@ -12,6 +12,20 @@ echo_time() {
 }
 
 tomcat_start () {
+
+    log "Checking to see if Rice is available"
+    echo_time "Checking to see if Rice is available"
+
+    # separated function call from variable assignment so echo statements would print progress
+    rice_check
+    riceup=$?
+    if [ "$riceup" -ne 0 ]; then
+      log "Rice is unavailable, so skipping KFS startup"
+      echo_time "Rice is unavailable, so skipping KFS startup"
+     
+      return 1;
+    fi
+
     #run logrotate on our log files
     logrotate -f /etc/logrotate.conf
 
@@ -115,7 +129,7 @@ tomcat_start () {
     # set up setenv.sh script for export of environment variables
     cp $TOMCAT_CONFIG_DIRECTORY/setenv.sh $TOMCAT_SHARE_BIN/setenv.sh
     chmod +x $TOMCAT_SHARE_BIN/setenv.sh
-
+      
     log "Starting up tomcat"
     echo_time "Starting up tomcat"
 
@@ -153,6 +167,31 @@ tomcat_status () {
     echo_time "Tomcat application server tomcat is running: PIDS are '$PIDS'."
 
     return;
+}
+
+rice_check () {
+  KFS_CONFIG_FILE=$KFS_CONFIG_DIRECTORY/uaf-kfs-config.properties
+  RICE_URL=$(grep "rice.url=" $KFS_CONFIG_FILE | sed -e 's/^rice\.url=//')/portal.do
+  RESPONSECODE=000
+  COUNTER=0
+
+  while [ "$RESPONSECODE" -ne 200 ]
+    do
+      if [ "$COUNTER" -gt 15 ]; then
+        echo "Invalid HTTP response code after 5 minutes: $RESPONSECODE"
+        return 1
+      fi
+      
+      echo "Waiting for $RICE_URL to be up: $RESPONSECODE"
+      RESPONSECODE=`curl -sL -w "%{http_code}" $RICE_URL -o /dev/null`
+      COUNTER=$((COUNTER+1))
+      sleep 20
+  done
+  
+  log "$RICE_URL is up."
+  echo_time "$RICE_URL is up."
+  
+  return 0;
 }
 
 log "Calling $0 $1"
