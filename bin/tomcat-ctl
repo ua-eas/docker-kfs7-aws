@@ -13,16 +13,19 @@ echo_time() {
 
 tomcat_start () {
 
-   log "Checking to see if Rice is available"
-   echo_time "Checking to see if Rice is available"
+    log "Checking to see if Rice is available"
+    echo_time "Checking to see if Rice is available"
 
-   if [ rice_check() != 0 ]; then
-     log "Rice is unavailable, so skipping KFS startup"
-     echo_time "Rice is unavailable, so skipping KFS startup"
+    # separated function call from variable assignment so echo statements would print progress
+    rice_check
+    riceup=$?
+    if [ "$riceup" -ne 0 ]; then
+      log "Rice is unavailable, so skipping KFS startup"
+      echo_time "Rice is unavailable, so skipping KFS startup"
      
-     return 1;
+      return 1;
     fi
-    
+
     #run logrotate on our log files
     logrotate -f /etc/logrotate.conf
 
@@ -176,7 +179,7 @@ rice_check () {
     do
       if [ "$COUNTER" -gt 15 ]; then
         echo "Invalid HTTP response code after 5 minutes: $RESPONSECODE"
-        exit 1
+        return 1
       fi
       
       echo "Waiting for $RICE_URL to be up: $RESPONSECODE"
@@ -188,7 +191,7 @@ rice_check () {
   log "$RICE_URL is up."
   echo_time "$RICE_URL is up."
   
-  return;
+  return 0;
 }
 
 log "Calling $0 $1"
