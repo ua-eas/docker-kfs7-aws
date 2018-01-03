@@ -171,7 +171,7 @@ tomcat_status () {
 
 rice_check () {
   KFS_CONFIG_FILE=$KFS_CONFIG_DIRECTORY/uaf-kfs-config.properties
-  RICE_URL=$(grep "rice.url" $KFS_CONFIG_FILE | sed -e 's/^rice\.url=//')/portal.do
+  RICE_URL=$(grep "rice.url=" $KFS_CONFIG_FILE | sed -e 's/^rice\.url=//')/portal.do
   RESPONSECODE=000
   COUNTER=0
 
