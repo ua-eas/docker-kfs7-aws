@@ -12,3 +12,11 @@
   missingok
   notifempty
 }
+/logs/kfs.log {
+  copytruncate
+  daily
+  rotate 52
+  compress
+  missingok
+  notifempty
+}
