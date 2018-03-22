@@ -1,4 +1,5 @@
 /logs/localhost.log
+/logs/kfs.log
 /logs/kfs-startup.log
 /logs/localhost_access_log.log
 /logs/manager.log
@@ -7,15 +8,7 @@
 /logs/catalina.out {
   copytruncate
   daily
-  rotate 52
-  compress
-  missingok
-  notifempty
-}
-/logs/kfs.log {
-  copytruncate
-  daily
-  rotate 52
+  rotate 365
   compress
   missingok
   notifempty
