@@ -31,7 +31,7 @@ tomcat_start () {
     mkdir -p "/efs/logs/$HOSTNAME/"
     ln -s "/efs/logs/$HOSTNAME/" $LOGS_DIRECTORY
     
-    # forcibly run run logrotate on our log files during tomcat startup
+    # forcibly run logrotate on our log files during tomcat startup
     logrotate -f /etc/logrotate.conf
 
     # re-map the tomcat logs directory to our mapped container volume
