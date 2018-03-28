@@ -40,7 +40,7 @@ ENV KFS_REPOSITORY_STG=releases
 COPY classes $TOMCAT_SHARE_LIB
 
 # setup log rotate
-#FIXME cron is different (or maybe not installed yet?) in CentOS
+# theoretically logrotate will run every hour and use the configuration defined in the /etc/logrotate.d/tomcat7 file
 RUN mv /etc/cron.daily/logrotate /etc/cron.hourly/logrotate
 ADD logrotate /etc/logrotate.d/tomcat7
 RUN chmod 644 /etc/logrotate.d/tomcat7

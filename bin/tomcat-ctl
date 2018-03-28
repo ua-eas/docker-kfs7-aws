@@ -26,13 +26,13 @@ tomcat_start () {
       return 1;
     fi
 
-    #run logrotate on our log files
-    logrotate -f /etc/logrotate.conf
-
     #Set up linking to get LOGS_DIRECTORY backed by EFS
     rm -Rf $LOGS_DIRECTORY
     mkdir -p "/efs/logs/$HOSTNAME/"
     ln -s "/efs/logs/$HOSTNAME/" $LOGS_DIRECTORY
+    
+    # forcibly run logrotate on our log files during tomcat startup
+    logrotate -f /etc/logrotate.conf
 
     # re-map the tomcat logs directory to our mapped container volume
     rm -f $TOMCAT_BASE_DIR/logs
