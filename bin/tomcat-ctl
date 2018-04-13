@@ -13,6 +13,9 @@ echo_time() {
 
 tomcat_start () {
 
+    # set up default umask
+    umask 002
+
     log "Checking to see if Rice is available"
     echo_time "Checking to see if Rice is available"
 
