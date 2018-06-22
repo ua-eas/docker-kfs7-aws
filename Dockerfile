@@ -8,6 +8,9 @@ COPY bin /usr/local/bin/
 # set kfs web app directory owner and group
 RUN chmod +x /usr/local/bin/*
 
+# set up default umask for root for new files created during batch
+RUN echo "umask 002" >> /root/.bashrc
+
 # create some useful shorcut environment variables
 ENV TOMCAT_BASE_DIR=$CATALINA_HOME
 ENV TOMCAT_SHARE_LIB=$TOMCAT_BASE_DIR/lib
