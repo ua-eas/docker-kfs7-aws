@@ -1,4 +1,4 @@
-FROM 760232551367.dkr.ecr.us-west-2.amazonaws.com/kuali/tomcat7:java8tomcat7
+FROM 760232551367.dkr.ecr.us-west-2.amazonaws.com/kuali/tomcat7:java8tomcat7-ua-release-2018-09-24
 
 RUN groupadd -r kuali && useradd -r -g kuali kualiadm
 
@@ -28,16 +28,6 @@ ENV KFS_CONFIG_DIRECTORY=/configuration/kfs-config
 ENV TOMCAT_KFS_CORE_DIR=$TOMCAT_KFS_DIR/kfs-core-ua
 ENV UA_DB_CHANGELOGS_DIR=$TOMCAT_KFS_CORE_DIR/changelogs
 ENV UA_KFS_INSTITUTIONAL_CONFIG_DIR=$TOMCAT_KFS_DIR/kfs-core-ua
-
-# Update Environment target versions
-ENV KFS_VERSION_DEV=ua-release28-SNAPSHOT
-ENV KFS_REPOSITORY_DEV=snapshots
-
-ENV KFS_VERSION_TST=ua-release28-SNAPSHOT
-ENV KFS_REPOSITORY_TST=snapshots
-
-ENV KFS_VERSION_STG=ua-release27
-ENV KFS_REPOSITORY_STG=releases
 
 # copy in the new relic jar file
 COPY classes $TOMCAT_SHARE_LIB
