@@ -1,4 +1,4 @@
-FROM 760232551367.dkr.ecr.us-west-2.amazonaws.com/kuali/tomcat7:java8tomcat7-ua-release-2018-09-24
+FROM 397167497055.dkr.ecr.us-west-2.amazonaws.com/kuali/tomcat7:java8tomcat7-ua-release-2018-09-24
 
 RUN groupadd -r kuali && useradd -r -g kuali kualiadm
 
