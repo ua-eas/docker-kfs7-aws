@@ -90,9 +90,9 @@ tomcat_start () {
     cp $SECURITY_DIRECTORY/newrelic.yml $TOMCAT_SHARE_LIB/newrelic.yml
 
     # copy in oracle JDBC drivers
-    log "Copying oracle JDBC drivers."
-    echo_time "Copying oracle JDBC drivers."
-    cp $TOMCAT_CONFIG_DIRECTORY/classes/* $TOMCAT_SHARE_LIB/*
+    log "Copying jar files to Tomcat lib directory."
+    echo_time "Copying jar files to Tomcat lib directory."
+    cp $TOMCAT_CONFIG_DIRECTORY/classes/* $TOMCAT_SHARE_LIB/
 
     # Get changelogs for liquibase
     log "Loading changelog files for liquibase."
