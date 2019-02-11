@@ -1,4 +1,6 @@
-FROM 397167497055.dkr.ecr.us-west-2.amazonaws.com/kuali/tomcat7:java8tomcat7-ua-release-2018-09-24
+ARG  DOCKER_REGISTRY
+ARG  BASE_IMAGE_TAG_DATE
+FROM $DOCKER_REGISTRY/kuali/tomcat7:java8tomcat7-ua-release-$BASE_IMAGE_TAG_DATE
 
 RUN groupadd -r kuali && useradd -r -g kuali kualiadm
 
