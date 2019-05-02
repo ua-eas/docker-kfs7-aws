@@ -107,7 +107,7 @@ tomcat_start () {
     # extract files in kfs-core-ua* jar
     # cd $TOMCAT_KFS_CORE_DIR
     echo "Unzipping $TOMCAT_KFS_DIR/WEB-INF/lib/kfs-core-ua* ..."
-    unzip -q -u $TOMCAT_KFS_DIR/WEB-INF/lib/kfs-core-7.20170511-ua-release* -d $TOMCAT_KFS_CORE_DIR
+    unzip -q -u $TOMCAT_KFS_DIR/WEB-INF/lib/kfs-core-7.20180531-ua-release* -d $TOMCAT_KFS_CORE_DIR
     echo "Done!"
 
     # copy edu changelog files to changelogs directory
