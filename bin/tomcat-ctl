@@ -56,8 +56,6 @@ tomcat_start () {
     chmod -R 777  $LOGS_DIRECTORY
     
     # forcibly run logrotate on our log files during tomcat startup
-    log "setting r/w perms for /etc/logrotate.conf.  FIN-932"
-    chmod 666 /etc/logrotate.conf 
     logrotate -f /etc/logrotate.conf
 
     # Make our kfs webapp directory if it doesn't exist
