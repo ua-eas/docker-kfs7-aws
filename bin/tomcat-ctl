@@ -104,10 +104,15 @@ tomcat_start () {
     # create new directory to hold the UA changelog files
     mkdir -p $UA_DB_CHANGELOGS_DIR
 
+    # Write KUALICO_TAG to log output. 
+    log "Using KUALICO_TAG: $KUALICO_TAG."
+    echo_time "Using KUALICO_TAG: $KUALICO_TAG."
+    
     # extract files in kfs-core-ua* jar
     # cd $TOMCAT_KFS_CORE_DIR
-    echo "Unzipping $TOMCAT_KFS_DIR/WEB-INF/lib/kfs-core-ua* ..."
-    unzip -q -u $TOMCAT_KFS_DIR/WEB-INF/lib/kfs-core-7.20170511-ua-release* -d $TOMCAT_KFS_CORE_DIR
+    log "Unzipping $TOMCAT_KFS_DIR/WEB-INF/lib/kfs-core-$KUALICO_TAG-ua-release* ..."
+    echo_time "Unzipping $TOMCAT_KFS_DIR/WEB-INF/lib/kfs-core-$KUALICO_TAG-ua-release* ..."
+    unzip -q -u $TOMCAT_KFS_DIR/WEB-INF/lib/kfs-core-$KUALICO_TAG-ua-release* -d $TOMCAT_KFS_CORE_DIR
     echo "Done!"
 
     # copy edu changelog files to changelogs directory

@@ -1,6 +1,8 @@
 ARG  DOCKER_REGISTRY
 ARG  BASE_IMAGE_TAG_DATE
 FROM $DOCKER_REGISTRY/kuali/tomcat7:java8tomcat7-ua-release-$BASE_IMAGE_TAG_DATE
+ARG  KUALICO_TAG
+ENV  KUALICO_TAG=$KUALICO_TAG
 
 RUN groupadd -r kuali && useradd -r -g kuali kualiadm
 
