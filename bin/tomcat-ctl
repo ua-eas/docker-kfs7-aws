@@ -25,7 +25,7 @@ tomcat_start () {
     if [ "$riceup" -ne 0 ]; then
       log "Rice is unavailable, so skipping KFS startup"
       echo_time "Rice is unavailable, so skipping KFS startup"
-     
+
       return 1;
     fi
 
@@ -33,7 +33,7 @@ tomcat_start () {
     rm -Rf $LOGS_DIRECTORY
     mkdir -p "/efs/logs/$HOSTNAME/"
     ln -s "/efs/logs/$HOSTNAME/" $LOGS_DIRECTORY
-    
+
     # re-map the tomcat logs directory to our mapped container volume
     rm -f $TOMCAT_BASE_DIR/logs
     ln -s $LOGS_DIRECTORY $TOMCAT_BASE_DIR/logs
@@ -54,7 +54,7 @@ tomcat_start () {
     fi
 
     chmod -R 777  $LOGS_DIRECTORY
-    
+
     # forcibly run logrotate on our log files during tomcat startup
     logrotate -f /etc/logrotate.conf
 
@@ -83,6 +83,7 @@ tomcat_start () {
     cp $SECURITY_DIRECTORY/tomcat-users.xml $TOMCAT_BASE_DIR/conf/tomcat-users.xml
     cp $TOMCAT_CONFIG_DIRECTORY/logging.properties $TOMCAT_BASE_DIR/conf/logging.properties
     cp $TOMCAT_CONFIG_DIRECTORY/log4j.xml $TOMCAT_KFS_WEBINF_DIR/classes/log4j.xml
+    cp $TOMCAT_CONFIG_DIRECTORY/context.xml $TOMCAT_KFS_METAINF_DIR/context.xml
 
     # copy in New Relic config file
     log "Copying New Relic configuration file."
@@ -104,10 +105,10 @@ tomcat_start () {
     # create new directory to hold the UA changelog files
     mkdir -p $UA_DB_CHANGELOGS_DIR
 
-    # Write KUALICO_TAG to log output. 
+    # Write KUALICO_TAG to log output.
     log "Using KUALICO_TAG: $KUALICO_TAG."
     echo_time "Using KUALICO_TAG: $KUALICO_TAG."
-    
+
     # extract files in kfs-core-ua* jar
     # cd $TOMCAT_KFS_CORE_DIR
     log "Unzipping $TOMCAT_KFS_DIR/WEB-INF/lib/kfs-core-$KUALICO_TAG-ua-release* ..."
@@ -137,7 +138,7 @@ tomcat_start () {
     # set up setenv.sh script for export of environment variables
     cp $TOMCAT_CONFIG_DIRECTORY/setenv.sh $TOMCAT_SHARE_BIN/setenv.sh
     chmod +x $TOMCAT_SHARE_BIN/setenv.sh
-      
+
     log "Starting up tomcat"
     echo_time "Starting up tomcat"
 
@@ -189,16 +190,16 @@ rice_check () {
         echo "Invalid HTTP response code after 5 minutes: $RESPONSECODE"
         return 1
       fi
-      
+
       echo "Waiting for $RICE_URL to be up: $RESPONSECODE"
       RESPONSECODE=`curl -sL -w "%{http_code}" $RICE_URL -o /dev/null`
       COUNTER=$((COUNTER+1))
       sleep 20
   done
-  
+
   log "$RICE_URL is up."
   echo_time "$RICE_URL is up."
-  
+
   return 0;
 }
 
