@@ -34,7 +34,7 @@ ENV UA_DB_CHANGELOGS_DIR=$TOMCAT_KFS_CORE_DIR/changelogs
 ENV UA_KFS_INSTITUTIONAL_CONFIG_DIR=$TOMCAT_KFS_DIR/kfs-core-ua
 ENV TOMCAT_KFS_METAINF_DIR=$TOMCAT_KFS_DIR/META-INF
 
-# copy in the new relic jar file
+# copy in the Liquibase and New Relic jar files
 COPY classes $TOMCAT_SHARE_LIB
 
 # setup log rotate
