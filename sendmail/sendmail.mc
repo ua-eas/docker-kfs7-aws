@@ -172,7 +172,7 @@ dnl MASQUERADE_DOMAIN(localhost.localdomain)dnl
 dnl MASQUERADE_DOMAIN(mydomainalias.com)dnl
 dnl MASQUERADE_DOMAIN(mydomain.lan)dnl
 define(`SMART_HOST', `email-smtp.us-west-2.amazonaws.com')dnl
-define(`RELAY_MAILER_ARGS', `TCP $h 25')dnl
+define(`RELAY_MAILER_ARGS', `TCP $h 587')dnl
 define(`confAUTH_MECHANISMS', `LOGIN PLAIN')dnl
 FEATURE(`authinfo', `hash -o /etc/mail/authinfo.db')dnl
 MASQUERADE_AS(`YOUR_DOMAIN')dnl
