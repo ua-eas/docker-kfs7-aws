@@ -1,6 +1,8 @@
 ARG  DOCKER_REGISTRY
 ARG  BASE_IMAGE_TAG_DATE
-FROM $DOCKER_REGISTRY/kuali/tomcat7:java8tomcat7-ua-release-$BASE_IMAGE_TAG_DATE
+FROM $DOCKER_REGISTRY/kuali/tomcat8:java8tomcat8-ua-release-$BASE_IMAGE_TAG_DATE
+ARG  KUALICO_TAG
+ENV  KUALICO_TAG=$KUALICO_TAG
 
 RUN groupadd -r kuali && useradd -r -g kuali kualiadm
 
@@ -30,15 +32,16 @@ ENV KFS_CONFIG_DIRECTORY=/configuration/kfs-config
 ENV TOMCAT_KFS_CORE_DIR=$TOMCAT_KFS_DIR/kfs-core-ua
 ENV UA_DB_CHANGELOGS_DIR=$TOMCAT_KFS_CORE_DIR/changelogs
 ENV UA_KFS_INSTITUTIONAL_CONFIG_DIR=$TOMCAT_KFS_DIR/kfs-core-ua
+ENV TOMCAT_KFS_METAINF_DIR=$TOMCAT_KFS_DIR/META-INF
 
-# copy in the new relic jar file
+# copy in the Liquibase and New Relic jar files
 COPY classes $TOMCAT_SHARE_LIB
 
 # setup log rotate
-# theoretically logrotate will run every hour and use the configuration defined in the /etc/logrotate.d/tomcat7 file
+# theoretically logrotate will run every hour and use the configuration defined in the /etc/logrotate.d/tomcat file
 RUN mv /etc/cron.daily/logrotate /etc/cron.hourly/logrotate
-ADD logrotate /etc/logrotate.d/tomcat7
-RUN chmod 644 /etc/logrotate.d/tomcat7
+ADD logrotate /etc/logrotate.d/tomcat
+RUN chmod 644 /etc/logrotate.d/tomcat
 
 # Copy the Application WAR in
 COPY files/kfs.war $TOMCAT_KFS_DIR/kfs.war
