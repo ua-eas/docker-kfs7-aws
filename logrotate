@@ -8,8 +8,8 @@
 /logs/catalina.out {
   copytruncate
   daily
-  rotate 730
-  maxage 730
+  rotate 3
+  maxage 3
   compress
   missingok
   notifempty
