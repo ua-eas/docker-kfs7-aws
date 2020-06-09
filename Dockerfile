@@ -1,6 +1,6 @@
 ARG  DOCKER_REGISTRY
 ARG  BASE_IMAGE_TAG_DATE
-FROM $DOCKER_REGISTRY/kuali/tomcat8:java8tomcat8-ua-release-$BASE_IMAGE_TAG_DATE
+FROM $DOCKER_REGISTRY/kuali/tomcat8:java11tomcat8-ua-release-$BASE_IMAGE_TAG_DATE
 ARG  KUALICO_TAG
 ENV  KUALICO_TAG=$KUALICO_TAG
 
@@ -48,7 +48,7 @@ COPY files/kfs.war $TOMCAT_KFS_DIR/kfs.war
 
 # Install Sendmail Services
 #http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sendmail.html
-RUN yum -y clean all && rpmdb --rebuilddb && yum -y install sendmail m4 sendmail-cf cyrus-sasl-plain
+RUN yum -y install sendmail m4 sendmail-cf cyrus-sasl-plain
 
 #Append /etc/mail/access file
 RUN echo "Connect:email-smtp.us-west-2.amazonaws.com RELAY" >> /etc/mail/access
