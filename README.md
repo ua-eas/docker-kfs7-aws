@@ -12,11 +12,11 @@ This is based on a **java11tomcat8** tagged image from the _397167497055.dkr.ecr
 ### Local Testing
 The following steps can be used to troubleshoot changes to the Dockerfile. This bypasses the rice dependency by changing ENTRYPOINT to local-testing.sh, and does not actually start up the KFS application.
 1. Make sure you have a `kuali/tomcat8:java11tomcat8-ua-release-$BASE_IMAGE_TAG_DATE` image in your Docker repository. (This may require a local build of the *java11tomcat8* base image).
-2. Temporarily change the Dockerfile to define the base image as `FROM kuali/tomcat8:java11tomcat8-ua-release-$BASE_IMAGE_TAG_DATE`.
+2. Temporarily change the Dockerfile to define the base image as `FROM kuali/tomcat8:java11tomcat8-ua-release-$BASE_IMAGE_TAG_DATE` and the ENTRYPOINT as `ENTRYPOINT /usr/local/bin/local-testing.sh`.
 3. Run the setup.pl script on the command line to get a kfs.war of the KFS snapshot build to include in your kfs7 Docker image. Example: `./setup.pl https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus snapshots 7.20190314-ua-release54-SNAPSHOT ua-ksd`
 4. Run this command to build a *kfs7* Docker image, replacing $BASE_IMAGE_TAG_DATE with the date referenced in step 1 and $KUALICO_TAG with the current KualiCo tag of the KFS code: `docker build --build-arg BASE_IMAGE_TAG_DATE=$BASE_IMAGE_TAG_DATE --build-arg KUALICO_TAG=$KUALICO_TAG -t kuali/kfs7:kfs7-ua-release-test .`
 5. You can run a kfs7 Docker container using a command like: `docker run -d --name=kfs7 --privileged=true kuali/kfs7:kfs7-ua-release-test .`
-6. Delete the files/kfs.war before committing your changes.
+6. Delete the files/kfs.war and undo the temporary changes to the Dockerfile before committing your changes.
 
 ### Building With Jenkins
 The build command we use is `docker build --build-arg DOCKER_REGISTRY=${DOCKER_REGISTRY} --build-arg BASE_IMAGE_TAG_DATE=${BASE_IMAGE_TAG_DATE} --build-arg KUALICO_TAG=${KUALICO_TAG} -t ${DOCKER_REPOSITORY_NAME} .`
