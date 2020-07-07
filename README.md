@@ -44,4 +44,4 @@ The KFS Docker container is run on an EC2 instance in AWS.
 More information can be found on Confluence: https://confluence.arizona.edu/display/KAST/AWS+Environment+Basics.
 
 ### Liquibase
-We utilize liquibase to apply and keep track of database changes. It is run before Tomcat starts up the KFS application. The current liquibase .jar was downloaded and extracted from https://www.liquibase.org/download, and then added to this project in the classes folder. It reflects the latest stable release.
+We utilize liquibase to apply and keep track of database changes. It is run before Tomcat starts up the KFS application. The current liquibase was downloaded from https://www.liquibase.org/download, and then added to this project in the liquibase folder. 
