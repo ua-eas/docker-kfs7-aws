@@ -6,6 +6,7 @@
 /logs/host-manager.log
 /logs/catalina.log
 /logs/catalina.out {
+  su root root
   copytruncate
   daily
   rotate 730
