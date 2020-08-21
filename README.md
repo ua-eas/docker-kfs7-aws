@@ -45,3 +45,6 @@ More information can be found on Confluence: https://confluence.arizona.edu/disp
 
 ### Liquibase
 We utilize liquibase to apply and keep track of database changes. It is run before Tomcat starts up the KFS application. The current liquibase was downloaded from https://www.liquibase.org/download, and then added to this project in the liquibase folder. 
+
+### Sendmail
+We configure the sendmail service to utilize Amazon SES. We adapted the instructions on https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-sendmail.html. The authinfo file (hydrated via an OpsWorks recipe) is copied to the target location in the container and then a sendmail restart is done before Tomcat starts the application. More info is on Confluence here: https://confluence.arizona.edu/display/KAST/KFS+7+and+Rice+AWS+SES.
