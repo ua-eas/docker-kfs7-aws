@@ -1,6 +1,6 @@
 ARG  DOCKER_REGISTRY
 ARG  BASE_IMAGE_TAG_DATE
-FROM $DOCKER_REGISTRY/kuali/tomcat8:java8tomcat8-ua-release-$BASE_IMAGE_TAG_DATE
+FROM $DOCKER_REGISTRY/kuali/tomcat8:java11tomcat8-ua-release-$BASE_IMAGE_TAG_DATE
 ARG  KUALICO_TAG
 ENV  KUALICO_TAG=$KUALICO_TAG
 
@@ -15,7 +15,7 @@ RUN chmod +x /usr/local/bin/*
 # set up default umask for root for new files created during batch
 RUN echo "umask 002" >> /root/.bashrc
 
-# create some useful shorcut environment variables
+# create some useful shortcut environment variables
 ENV TOMCAT_BASE_DIR=$CATALINA_HOME
 ENV TOMCAT_SHARE_LIB=$TOMCAT_BASE_DIR/lib
 ENV TOMCAT_SHARE_BIN=$TOMCAT_BASE_DIR/bin
@@ -33,8 +33,9 @@ ENV TOMCAT_KFS_CORE_DIR=$TOMCAT_KFS_DIR/kfs-core-ua
 ENV UA_DB_CHANGELOGS_DIR=$TOMCAT_KFS_CORE_DIR/changelogs
 ENV UA_KFS_INSTITUTIONAL_CONFIG_DIR=$TOMCAT_KFS_DIR/kfs-core-ua
 ENV TOMCAT_KFS_METAINF_DIR=$TOMCAT_KFS_DIR/META-INF
+ENV LIQUIBASE_HOME=/opt/liquibase
 
-# copy in the Liquibase and New Relic jar files
+# copy in the New Relic jar file
 COPY classes $TOMCAT_SHARE_LIB
 
 # setup log rotate
@@ -48,7 +49,7 @@ COPY files/kfs.war $TOMCAT_KFS_DIR/kfs.war
 
 # Install Sendmail Services
 #http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sendmail.html
-RUN yum -y clean all && rpmdb --rebuilddb && yum -y install sendmail m4 sendmail-cf cyrus-sasl-plain
+RUN yum -y install sendmail m4 sendmail-cf cyrus-sasl-plain
 
 #Append /etc/mail/access file
 RUN echo "Connect:email-smtp.us-west-2.amazonaws.com RELAY" >> /etc/mail/access
@@ -62,5 +63,13 @@ COPY sendmail/sendmail.mc /etc/mail/sendmail.mc
 RUN  sudo chmod 666 /etc/mail/sendmail.cf
 RUN  sudo m4 /etc/mail/sendmail.mc > /etc/mail/sendmail.cf
 RUN  sudo chmod 644 /etc/mail/sendmail.cf
+
+# set up liquibase; update if version bump
+RUN mkdir /opt/liquibase
+COPY liquibase $LIQUIBASE_HOME
+RUN cd $LIQUIBASE_HOME && \ 
+    tar -zxvf $LIQUIBASE_HOME/liquibase-3.5.5-bin.tar.gz && \
+    cd -
+ENV PATH=$PATH:$LIQUIBASE_HOME
 
 ENTRYPOINT /usr/local/bin/tomcat-start
