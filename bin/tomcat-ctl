@@ -133,8 +133,8 @@ tomcat_start () {
     # Related documentation: http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sendmail.html
     cp $SMTP_SECURITY_DIRECTORY/authinfo /etc/mail/
     makemap hash /etc/mail/authinfo.db < /etc/mail/authinfo
-    # Restart sendmail to load new authinfo
-    sudo /etc/init.d/sendmail restart
+    # Restart sendmail to load new authinfo (see FIN-1756 for changes made for CentOS 8)
+    sudo /usr/sbin/sendmail -bd -q1h
 
     # set up setenv.sh script for export of environment variables
     cp $TOMCAT_CONFIG_DIRECTORY/setenv.sh $TOMCAT_SHARE_BIN/setenv.sh
