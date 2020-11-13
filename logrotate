@@ -1,5 +1,4 @@
 /logs/localhost.log
-/logs/kfs.log
 /logs/kfs-startup.log
 /logs/localhost_access_log.log
 /logs/manager.log
