@@ -80,6 +80,7 @@ tomcat_start () {
     mkdir -p $TOMCAT_BASE_DIR/conf/
     mkdir -p $TOMCAT_KFS_WEBINF_DIR/classes/
     cp $TOMCAT_CONFIG_DIRECTORY/server.xml $TOMCAT_BASE_DIR/conf/server.xml
+    cp $TOMCAT_CONFIG_DIRECTORY/web.xml $TOMCAT_BASE_DIR/conf/web.xml
     cp $SECURITY_DIRECTORY/tomcat-users.xml $TOMCAT_BASE_DIR/conf/tomcat-users.xml
     cp $TOMCAT_CONFIG_DIRECTORY/logging.properties $TOMCAT_BASE_DIR/conf/logging.properties
     cp $TOMCAT_CONFIG_DIRECTORY/log4j.xml $TOMCAT_KFS_WEBINF_DIR/classes/log4j.xml
