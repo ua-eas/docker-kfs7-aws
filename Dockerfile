@@ -48,7 +48,7 @@ RUN chmod 644 /etc/logrotate.d/tomcat
 COPY files/kfs.war $TOMCAT_KFS_DIR/kfs.war
 
 # FIN-2165 Copy the generic error.jsp page into kfs webapps context
-COPY $TOMCAT_WEBAPPS_DIR/ROOT/error.jsp $TOMCAT_KFS_DIR
+COPY files/error.jsp $TOMCAT_KFS_DIR
 
 # Install Sendmail Services
 #http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sendmail.html
