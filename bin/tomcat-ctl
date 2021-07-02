@@ -85,6 +85,7 @@ tomcat_start () {
     cp $TOMCAT_CONFIG_DIRECTORY/logging.properties $TOMCAT_BASE_DIR/conf/logging.properties
     cp $TOMCAT_CONFIG_DIRECTORY/log4j.xml $TOMCAT_KFS_WEBINF_DIR/classes/log4j.xml
     cp $TOMCAT_CONFIG_DIRECTORY/context.xml $TOMCAT_KFS_METAINF_DIR/context.xml
+    mv $TOMCAT_WEBAPPS_DIR/error.jsp $TOMCAT_KFS_DIR/error.jsp
 
     # copy in New Relic config file
     log "Copying New Relic configuration file."
