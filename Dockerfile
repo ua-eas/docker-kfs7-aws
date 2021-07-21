@@ -47,6 +47,9 @@ RUN chmod 644 /etc/logrotate.d/tomcat
 # Copy the Application WAR in
 COPY files/kfs.war $TOMCAT_KFS_DIR/kfs.war
 
+# FIN-2165 Copy the generic error.jsp page into webapps folder to be later copied into the kfs context in tomcat-ctl
+COPY webapp-files/error.jsp $TOMCAT_WEBAPPS_DIR/error.jsp
+
 # Install Sendmail Services
 #http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sendmail.html
 RUN yum -y install sendmail m4 sendmail-cf cyrus-sasl-plain
