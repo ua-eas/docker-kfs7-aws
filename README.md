@@ -3,6 +3,8 @@ University of Arizona Kuali Financials Docker Image
 
 This repository is for the Kuali team's KFS image used for the UAccess Financials application.
 
+**We moved this repository to bitbucket for release 63. URL: https://bitbucket.org/uits-ksd/docker-kfs**
+
 ### Description
 This project defines an image used for the KFS Docker container.
 
